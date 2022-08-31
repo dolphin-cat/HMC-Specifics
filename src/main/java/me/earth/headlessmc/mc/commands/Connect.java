@@ -8,24 +8,24 @@ import me.earth.headlessmc.mc.player.Player;
 public class Connect extends AbstractMinecraftCommand
     implements ScheduledCommand {
     public Connect(HeadlessMc ctx, Minecraft mc) {
-        super(ctx, mc, "msg", "Sends a chat message.");
+        super(ctx, mc, "connect", "connects to a server.");
     }
 
     @Override
     public void execute(String... args) throws CommandException {
-        if (args.length <= 1) {
-            throw new CommandException("Please specify a message!");
-        } else if (args.length > 2) {
-            ctx.log("MessageCommand received multiple arguments. If you want" +
-                        " to send a message containing spaces escape them" +
-                        " using \".");
+        if (args.length == 1) {
+            ctx.log("address");
+        }else if (args.length == 2) {
+            ctx.log("address+port");
+        }else {
+            ctx.log("none of the above");
         }
 
         Player player = mc.getPlayer();
-        if (player == null) {
-            ctx.log("You need to be ingame to send a message!");
+        if (player != null) {
+            ctx.log("you need to disconnect from the current server first.");
         } else {
-            player.sendMessage(args[1]);
+            ctx.log("joined");
         }
     }
 
